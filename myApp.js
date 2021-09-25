@@ -17,9 +17,9 @@ var Person = mongoose.model('Person',personSchema);
 
 const createAndSavePerson = (done) => {
   const person = new Person({
-    name: "Canım",
+    name: "Fuat",
     age: 22,
-    favoriteFoods: ["asdasda", "banana"]
+    favoriteFoods: ["apple", "banana"]
   })
 
   person.save((err, data) => err ? done(err) : done(null, data));
@@ -62,8 +62,10 @@ const findEditThenSave = (personId, done) => {
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
-
-  done(null /*, data*/);
+  Person.findOneAndUpdate({name: personName}, {age: ageToSet}, {new: true},
+    (err, data) => {
+      err ? done(err) : done(null, data)
+  })
 };
 
 const removeById = (personId, done) => {
